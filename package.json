@@ -1,0 +1,24 @@
+{
+  "name": "linksys",
+  "version": "0.0.0",
+  "description": "core package for creating network graphs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Porkts/linksys"
+  },
+  "keywords": [
+    "link",
+    "analysis",
+    "network",
+    "graph"
+  ],
+  "author": "EvertonRecchi",
+  "license": "ISC",
+  "dependencies": {
+    "vivagraphjs": "^0.10.1"
+  }
+}
