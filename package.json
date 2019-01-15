@@ -19,7 +19,11 @@
     "network",
     "graph"
   ],
-  "author": "EvertonRecchi",
+  "author": {
+    "name": "EvertonRecchi",
+    "email": "everton.recchi@hotmail.com",
+    "homepage": "facebook.com/everton.cleisiane"
+  },
   "license": "ISC",
   "dependencies": {
     "vivagraphjs": "^0.10.1"
