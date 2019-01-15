@@ -1,11 +1,14 @@
 {
   "name": "linksys",
   "version": "0.0.0",
-  "description": "core package for creating network graphs",
-  "main": "index.js",
   "scripts": {
+    "build": "babel index.js -d dist",
+    "gulp": "gulp",
+    "minify": "gulp minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "description": "core package for creating network graphs",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Porkts/linksys"
@@ -20,5 +23,13 @@
   "license": "ISC",
   "dependencies": {
     "vivagraphjs": "^0.10.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-preset-minify": "^0.5.0",
+    "gulp": "^4.0.0",
+    "webpack-stream": "^5.2.1"
   }
 }
