@@ -53,6 +53,17 @@ const linksys = {
     graph_loaded.forEachLink((link)=> {
       linksys.addLink(link.fromId, link.toId, link.data)
     })
+  },
+
+  saveFromJson: (name) => {
+    let serializer = Viva.Graph.serializer()
+    let graph_json = JSON.parse(serializer.storeToJSON(linksys.Graph))
+    graph_json['name'] = name
+    var link = document.createElement('a')
+    link.download = name +'.json'
+    var blob = new Blob([JSON.stringify(graph_json)], {type: 'text/plain'})
+    link.href = window.URL.createObjectURL(blob);
+    link.click();
   }
 }
 
