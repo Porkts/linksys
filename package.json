@@ -9,6 +9,10 @@
   "main": "index.js",
   "repository": {
     "type": "git",
+    "url": "https://github.com/Porkts/linksys"
+  },
+  "repository": {
+    "type": "git",
     "url": "https://gitlabgaeco.mpse.mp.br/everton.recchi/linksys.git"
   },
   "keywords": [
