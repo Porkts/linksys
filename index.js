@@ -51,7 +51,7 @@ const linksys = {
     })
 
     graph_loaded.forEachLink((link)=> {
-      linksys.graph.addLink(link.fromId, link.toId, link.data)
+      linksys.addLink(link.fromId, link.toId, link.data)
     })
   }
 }
