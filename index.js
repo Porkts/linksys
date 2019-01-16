@@ -36,9 +36,9 @@ const linksys = {
         linksys.Graph.endUpdate()
 	},
 
-	addLink: (node1, node2, data) => {
+	addLink: (node1_id, node2_id, data) => {
     linksys.Graph.beginUpdate()
-		linksys.Graph.addLink(node1.id, node2.id, {id: data.id, label: data.label, count: data.count});
+		linksys.Graph.addLink(node1_id, node2_id, {id: data.id, label: data.label, count: data.count});
     linksys.Graph.endUpdate()
 	},
 
