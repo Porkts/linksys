@@ -1,16 +1,12 @@
 {
   "name": "linksys",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "scripts": {
     "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "description": "core package for creating network graphs",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Porkts/linksys"
-  },
   "repository": {
     "type": "git",
     "url": "https://gitlabgaeco.mpse.mp.br/everton.recchi/linksys.git"
