@@ -37,10 +37,23 @@ const linksys = {
 	},
 
 	addLink: (node1, node2, data) => {
-        linksys.Graph.beginUpdate()
+    linksys.Graph.beginUpdate()
 		linksys.Graph.addLink(node1.id, node2.id, {id: data.id, label: data.label, count: data.count});
-        linksys.Graph.endUpdate()
-	}
+    linksys.Graph.endUpdate()
+	},
+
+  loadFromJson: (json) => {
+    let serializer = Viva.Graph.serializer()
+    let graph_loaded = serializer.loadFromJSON(json)
+
+    graph_loaded.forEachNode((node)=> {
+      linksys.addNode(node)
+    })
+
+    graph_loaded.forEachLink((link)=> {
+      linksys.graph.addLink(link.fromId, link.toId, link.data)
+    })
+  }
 }
 
 function newNode(node)
