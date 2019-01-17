@@ -27,6 +27,11 @@ const linksys = {
 				            container: document.getElementById(div_id)
 				        });
 
+    let marker = linksys.createMarker('Triangle')
+    marker.append('path').attr('d', 'M 0 0 L 10 5 L 0 10 z')
+    var defs = linksys.Graphics.getSvgRoot().append('defs');
+    defs.append(marker);
+    
 		linksys.Renderer.run();
 	},
 
@@ -41,6 +46,19 @@ const linksys = {
 		linksys.Graph.addLink(node1_id, node2_id, {id: data.id, label: data.label, count: data.count});
     linksys.Graph.endUpdate()
 	},
+
+  createMarker: (id) => {
+    return Viva.Graph.svg('marker')
+      .attr('id', id)
+      .attr('viewBox', "0 0 10 10")
+      .attr('refX', "10")
+      .attr('refY', "5")
+      .attr('markerUnits', "strokeWidth")
+      .attr('markerWidth', "10")
+      .attr('markerHeight', "5")
+      .attr('fill','grey')
+      .attr('orient', "auto")
+  },
 
   loadFromJson: (json) => {
     let serializer = Viva.Graph.serializer()
