@@ -14,18 +14,18 @@ const linksys = {
 	Graphics: Viva.Graph.View.svgGraphics().node(newNode).placeNode(updateNode).link(newLink).placeLink(updateLink),
 
 	init: (div_id) => {
-		linksys.Layout = Viva.Graph.Layout.forceDirected(linksys.Graph, {
-					        springLength : 200,
-					        springCoeff : 0.0004,
-					        dragCoeff : 0.03,
-					        gravity : -1.9
-					    })
+    linksys.Layout = Viva.Graph.Layout.forceDirected(linksys.Graph, {
+      springLength : 200,
+      springCoeff : 0.0004,
+      dragCoeff : 0.03,
+      gravity : -1.9
+    })
 
 		linksys.Renderer = Viva.Graph.View.renderer(linksys.Graph, {
-				            layout   : linksys.Layout,
-				            graphics : linksys.Graphics,
-				            container: document.getElementById(div_id)
-				        });
+        layout   : linksys.Layout,
+        graphics : linksys.Graphics,
+        container: document.getElementById(div_id)
+    });
 
     let marker = linksys.createMarker('Triangle')
     marker.append('path').attr('d', 'M 0 0 L 10 5 L 0 10 z')
@@ -154,7 +154,12 @@ function newLink(link)
 
     if (link.data.hasOwnProperty('label'))
     {    
-      var label = Viva.Graph.svg('text').attr('id','label_'+link.data.id).attr('fill','grey').text(link.data.label);
+      var label = Viva.Graph.svg('text').attr('id','label_'+link.data.id).attr('fill','grey')//.text(link.data.label);
+      link.data.label.split('|').forEach( function(element, index) {
+        let line = Viva.Graph.svg('tspan').attr('x', '0').attr('y', (0).toString()).text(element)
+
+        label.append(line);
+      })
       var label_background = Viva.Graph.svg('rect').attr('id', 'background_label_'+link.data.id).attr('fill','white').attr('stroke', 'white');
       ui.append(label_background);
       ui.append(label);
@@ -204,11 +209,11 @@ function updateLink(linkUI, fromPos, toPos)
 
     // Calculo da posicao inicial e final das linhas
       // linha 1
-      let path_base = basePath(from,to);
+      var path_base = basePath(from,to);
       
 	if (linha1 > 0)
 	{
-        let path = otherPath(path_base[0], path_base[2].end, linha1);
+        var path = otherPath(path_base[0], path_base[2].end, linha1);
 
       // Atualizando a posicao das linhas
           linkUI.childNodes[0].attr("d", stringPos(path[0]));
@@ -219,8 +224,12 @@ function updateLink(linkUI, fromPos, toPos)
         if (entry != null)
         {
           var label = entry.getBBox();
-          entry.attr("x", ((path[1].start.x + path[1].end.x) / 2) - label.width / 2 );
-          entry.attr("y", ((path[1].start.y + path[1].end.y) / 2) + 4 );
+
+          for (var i = 0; i < entry.childElementCount; i++) {
+            console.log(entry.children[i])
+            entry.children[i].attr('x', ((path[1].start.x + path[1].end.x) / 2) - label.width / 2 )
+            entry.children[i].attr('y', ((path[1].start.y + path[1].end.y) / 2) + 4 + (i * 15))
+          }
 
           var background_label = document.getElementById('background_label_'+linkUI.attr('id'));
           background_label.attr('width', label.width+4);
@@ -229,9 +238,9 @@ function updateLink(linkUI, fromPos, toPos)
           background_label.attr('y', label.y-2);
         }
 
-	}
-	else
-	{
+  }
+  else
+  {
 
       // Atualizando a posicao das linhas
           linkUI.childNodes[0].attr("d", stringPos(path_base[0]));
@@ -239,18 +248,20 @@ function updateLink(linkUI, fromPos, toPos)
           linkUI.childNodes[2].attr("d", stringPos(path_base[2]));
 
           var entry = document.getElementById('label_'+linkUI.attr('id'));
-        if (entry != null)
-        {
-          var label = entry.getBBox();
-          entry.attr("x", ((path_base[1].start.x + path_base[1].end.x) / 2) - label.width / 2 );
-          entry.attr("y", ((path_base[1].start.y + path_base[1].end.y) / 2) + 4 );
+          if (entry != null)
+          {
+            var label = entry.getBBox();
 
-          var background_label = document.getElementById('background_label_'+linkUI.attr('id'));
-          background_label.attr('width', label.width+4);
-          background_label.attr('height', label.height+2);
-          background_label.attr('x', label.x-1);
-          background_label.attr('y', label.y-2);
-        }
+            for (var i = 0; i < entry.childElementCount; i++) {
+              entry.children[i].attr('x', ((path_base[1].start.x + path_base[1].end.x) / 2) - label.width / 2 )
+              entry.children[i].attr('y', ((path_base[1].start.y + path_base[1].end.y) / 2) + 4 + (i * 15))
+            }
+            var background_label = document.getElementById('background_label_'+linkUI.attr('id'));
+            background_label.attr('width', label.width+4);
+            background_label.attr('height', label.height+2);
+            background_label.attr('x', label.x-1);
+            background_label.attr('y', label.y-2);
+          }
 
   	}
 }
