@@ -1,6 +1,6 @@
 {
   "name": "linksys",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "scripts": {
     "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
