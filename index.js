@@ -31,7 +31,7 @@ const linksys = {
     marker.append('path').attr('d', 'M 0 0 L 10 5 L 0 10 z')
     var defs = linksys.Graphics.getSvgRoot().append('defs');
     defs.append(marker);
-    
+
 		linksys.Renderer.run();
 	},
 
@@ -93,7 +93,14 @@ function newNode(node)
     ui.attr('class', 'node '+ node.data.type)
 
 
-    svgText = Viva.Graph.svg('text').attr('text-anchor', 'middle').attr('y', '+'+ (NodeSize + NodeLabelSize) +'px').text(node.data.label) // Label da imagem
+    svgText = Viva.Graph.svg('text').attr('text-anchor', 'middle').attr('y', '+'+ (NodeSize + NodeLabelSize) +'px')
+    
+    node.data.label.split('|').forEach( function(element, index) {
+      let line = Viva.Graph.svg('tspan').attr('x', '0').attr('y', ((NodeSize + NodeLabelSize) + (index * 15)).toString()).text(element)
+
+      svgText.append(line);
+    })
+    
     img = Viva.Graph.svg('image')
          .attr('width', NodeSize) // Largura da imagem
          .attr('height', NodeSize) // Altura da imagem 
