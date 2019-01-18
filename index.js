@@ -14,12 +14,12 @@ const linksys = {
 	Graphics: Viva.Graph.View.svgGraphics().node(newNode).placeNode(updateNode).link(newLink).placeLink(updateLink),
   fixNodes: false,
 
-	init: (div_id, options) => {
+	init: (div_id, options = null) => {
     linksys.Layout = Viva.Graph.Layout.forceDirected(linksys.Graph, {
-      springLength : (options.hasOwnProperty('springLength') ? options.springLength : 200),
-      springCoeff : (options.hasOwnProperty('springCoeff') ? options.springCoeff : 0.0004),
-      dragCoeff : (options.hasOwnProperty('dragCoeff') ? options.dragCoeff : 0.03),
-      gravity : (options.hasOwnProperty('gravity') ? options.gravity : -1.9)
+      springLength : (options != null && options.hasOwnProperty('springLength') ? options.springLength : 200),
+      springCoeff : (options != null && options.hasOwnProperty('springCoeff') ? options.springCoeff : 0.0004),
+      dragCoeff : (options != null && options.hasOwnProperty('dragCoeff') ? options.dragCoeff : 0.03),
+      gravity : (options != null && options.hasOwnProperty('gravity') ? options.gravity : -1.9)
     })
 
 		linksys.Renderer = Viva.Graph.View.renderer(linksys.Graph, {
@@ -100,12 +100,25 @@ const linksys = {
     linksys.Layout.pinNode(node, !linksys.Layout.isNodePinned(node))
   },
 
-  toggleFixNodes: () => {
-    linksys.fixNodes = !linksys.fixNodes
+  toggleFixNodes: (list = null) => {
 
-    linksys.Graph.forEachNode(node => {
-      linksys.Layout.pinNode(node, linksys.fixNodes)
-    })
+    if (list === null)
+    {
+      linksys.fixNodes = !linksys.fixNodes
+
+      linksys.Graph.forEachNode(node => {
+        linksys.Layout.pinNode(node, linksys.fixNodes)
+      })
+    }
+    else
+    {
+      if (Array.isArray(list))
+      {
+        list.forEach( function(element, index) {
+          linksys.toggleFixNode(element)
+        })
+      }
+    }
   }
 }
 
