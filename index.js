@@ -12,13 +12,14 @@ const linksys = {
 	Geom: Viva.Graph.geom(),
 	Graph: Viva.Graph.graph(),
 	Graphics: Viva.Graph.View.svgGraphics().node(newNode).placeNode(updateNode).link(newLink).placeLink(updateLink),
+  fixNodes: false,
 
-	init: (div_id) => {
+	init: (div_id, options) => {
     linksys.Layout = Viva.Graph.Layout.forceDirected(linksys.Graph, {
-      springLength : 200,
-      springCoeff : 0.0004,
-      dragCoeff : 0.03,
-      gravity : -1.9
+      springLength : (options.hasOwnProperty('springLength') ? options.springLength : 200),
+      springCoeff : (options.hasOwnProperty('springCoeff') ? options.springCoeff : 0.0004),
+      dragCoeff : (options.hasOwnProperty('dragCoeff') ? options.dragCoeff : 0.03),
+      gravity : (options.hasOwnProperty('gravity') ? options.gravity : -1.9)
     })
 
 		linksys.Renderer = Viva.Graph.View.renderer(linksys.Graph, {
@@ -82,6 +83,29 @@ const linksys = {
     var blob = new Blob([JSON.stringify(graph_json)], {type: 'text/plain'})
     link.href = window.URL.createObjectURL(blob);
     link.click();
+  },
+
+  getNode: (node_id) => {
+    let node = linksys.Graph.getNode(node_id)
+    return node
+  },
+
+  getLink: (fromNodeId, toNodeId) => {
+    let link = linksys.Graph.getLink(fromNodeId, toNodeId)
+    return link
+  },
+
+  toggleFixNode: (node_id) => {
+    let node = linksys.getNode(node_id)
+    linksys.Layout.pinNode(node, !linksys.Layout.isNodePinned(node))
+  },
+
+  toggleFixNodes: () => {
+    linksys.fixNodes = !linksys.fixNodes
+
+    linksys.Graph.forEachNode(node => {
+      linksys.Layout.pinNode(node, linksys.fixNodes)
+    })
   }
 }
 

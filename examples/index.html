@@ -60,6 +60,11 @@
  			linksys.addNode(node2)
 
  			linksys.addLink(node1.id, node2.id, {id: 123, count: 0, label: 'teste | link'})
+
+ 			console.log(linksys.getNode(node1.id))
+ 			console.log(linksys.getLink(node1.id, node2.id))
+
+ 			linksys.toggleFixNodes()
  		</script>
 	</body>
 </html>
