@@ -32,7 +32,7 @@
  		<script src="../dist/linksys.min.js"></script>
  		<script type="text/javascript">
  			// Iniciando o grafico
- 			linksys.init('link');
+ 			linksys.init('link', {gravity: -1.9});
 
  			// Estrutura do nó a ser adicionado
 			node1 = {
@@ -60,10 +60,7 @@
  			linksys.addNode(node2)
 
  			linksys.addLink(node1.id, node2.id, {id: 123, count: 0, label: 'teste | link'})
-
- 			console.log(linksys.getNode(node1.id))
- 			console.log(linksys.getLink(node1.id, node2.id))
-
+ 			linksys.addLink(node2.id, node1.id, {id: 321, count: 0, label: 'teste | link'})
  			linksys.toggleFixNodes()
  		</script>
 	</body>

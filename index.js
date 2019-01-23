@@ -90,9 +90,16 @@ const linksys = {
     return node
   },
 
-  getLink: (fromNodeId, toNodeId) => {
-    let link = linksys.Graph.getLink(fromNodeId, toNodeId)
-    return link
+  getLink: (link_id) => {
+    var results = null
+
+    linksys.Graph.forEachLink(link => {
+      console.log("Link do Laço: ", link.data.id, "Tipo: ", typeof link.data.id, "Comparando com: ", link_id, "Tipo: ", typeof link_id, "São iguais?: ", link.data.id == link_id, "São Super iguais?:", link.data.id === link_id)
+      if (link.data.id == link_id)
+        results = link
+    })
+
+    return results
   },
 
   toggleFixNode: (node_id) => {
