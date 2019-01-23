@@ -44,9 +44,8 @@ const linksys = {
 
 	addLink: (node1_id, node2_id, data) => {
     linksys.Graph.beginUpdate()
-    // let link = linksys.Graph.hasLink(node1_id, node2_id) || linksys.Graph.hasLink(node1_id, node2_id)
-    // if ()
-		linksys.Graph.addLink(node1_id, node2_id, {id: data.id, label: data.label, count: data.count, attr: data.attr});
+    let count = calcNextLinkCount(node1_id, node2_id)
+		linksys.Graph.addLink(node1_id, node2_id, {id: data.id, label: data.label, count: count, attr: data.attr});
     linksys.Graph.endUpdate()
 	},
 
@@ -128,6 +127,26 @@ const linksys = {
       }
     }
   }
+}
+
+function calcNextLinkCount(node1_id, node2_id)
+{
+  let count = 0
+  linksys.Graph.forEachLinkedNode(node1_id, (linkedNode, link) => {
+    if (linkedNode.id == node2_id && link.data.count >= count)
+    {
+      count = link.data.count + 1
+    }
+  })
+
+  linksys.Graph.forEachLinkedNode(node2_id, (linkedNode, link) => {
+    if (linkedNode.id == node1_id && link.data.count >= count)
+    { 
+      count = link.data.count + 1
+    }
+  })
+
+  return count
 }
 
 function newNode(node)
@@ -271,7 +290,6 @@ function updateLink(linkUI, fromPos, toPos)
           var label = entry.getBBox();
 
           for (var i = 0; i < entry.childElementCount; i++) {
-            console.log(entry.children[i])
             entry.children[i].attr('x', ((path[1].start.x + path[1].end.x) / 2) - label.width / 2 )
             entry.children[i].attr('y', ((path[1].start.y + path[1].end.y) / 2) + 4 + (i * 15))
           }
