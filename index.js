@@ -44,7 +44,9 @@ const linksys = {
 
 	addLink: (node1_id, node2_id, data) => {
     linksys.Graph.beginUpdate()
-		linksys.Graph.addLink(node1_id, node2_id, {id: data.id, label: data.label, count: data.count});
+    // let link = linksys.Graph.hasLink(node1_id, node2_id) || linksys.Graph.hasLink(node1_id, node2_id)
+    // if ()
+		linksys.Graph.addLink(node1_id, node2_id, {id: data.id, label: data.label, count: data.count, attr: data.attr});
     linksys.Graph.endUpdate()
 	},
 
@@ -94,7 +96,6 @@ const linksys = {
     var results = null
 
     linksys.Graph.forEachLink(link => {
-      console.log("Link do Laço: ", link.data.id, "Tipo: ", typeof link.data.id, "Comparando com: ", link_id, "Tipo: ", typeof link_id, "São iguais?: ", link.data.id == link_id, "São Super iguais?:", link.data.id === link_id)
       if (link.data.id == link_id)
         results = link
     })

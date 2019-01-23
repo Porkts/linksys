@@ -59,9 +59,7 @@
  			linksys.addNode(node1)
  			linksys.addNode(node2)
 
- 			linksys.addLink(node1.id, node2.id, {id: 123, count: 0, label: 'teste | link'})
- 			linksys.addLink(node2.id, node1.id, {id: 321, count: 0, label: 'teste | link'})
- 			linksys.toggleFixNodes()
+ 			linksys.addLink(node1.id, node2.id, {id: 123, count: 0, label: 'teste | link', attr: [123,321,123]})
  		</script>
 	</body>
 </html>
