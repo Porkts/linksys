@@ -1,6 +1,6 @@
 {
   "name": "linksys",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "scripts": {
     "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,6 +24,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "jquery": "^3.3.1",
     "vivagraphjs": "^0.10.1"
   },
   "devDependencies": {

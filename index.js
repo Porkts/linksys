@@ -1,4 +1,5 @@
 const Viva = require('vivagraphjs')
+const $ = require('jquery')
 
 
 // Tamanho dos nós e padding
@@ -178,7 +179,30 @@ function newNode(node)
     ui.append(svgText)
     ui.append(img)
 
+    $(ui).hover(() => { // mouse over
+        highlightRelatedNodes(id, true);
+    }, function() { // mouse out
+        highlightRelatedNodes(id, false);
+    });
+
     return ui
+}
+
+function highlightRelatedNodes(nodeId, isOn)
+{
+  // just enumerate all realted nodes and update link color:
+  linksys.Graph.forEachLinkedNode(nodeId, function(node, link){
+    var linkUI = linksys.Graphics.getLinkUI(link.id);
+    if (linkUI) {
+      // linkUI is a UI object created by graphics below
+      linkUI.childNodes.forEach( function(element, index) {
+          if (index != 3 && index != 4)
+          {
+            element.attr('stroke', isOn ? 'red' : 'gray');
+          }
+      });
+     }
+  });
 }
 
 function updateNode(nodeUi, pos)
