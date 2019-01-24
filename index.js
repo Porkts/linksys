@@ -12,9 +12,13 @@ const linksys = {
 	Geom: Viva.Graph.geom(),
 	Graph: Viva.Graph.graph(),
 	Graphics: Viva.Graph.View.svgGraphics().node(newNode).placeNode(updateNode).link(newLink).placeLink(updateLink),
+  distanceLink: 20,
   fixNodes: false,
 
 	init: (div_id, options = null) => {
+    if (options != null && options.hasOwnProperty('distanceLink'))
+      linksys.distanceLink = options.distanceLink
+
     linksys.Layout = Viva.Graph.Layout.forceDirected(linksys.Graph, {
       springLength : (options != null && options.hasOwnProperty('springLength') ? options.springLength : 200),
       springCoeff : (options != null && options.hasOwnProperty('springCoeff') ? options.springCoeff : 0.0004),
@@ -344,6 +348,8 @@ function otherPath(from, to, count)
 	let sinal = count;
 	let path = [];
 
+  let distance = linksys.distanceLink;
+
 	var count_teste = parseInt(count);
 
 	if (count % 2 == 0)
@@ -358,7 +364,7 @@ function otherPath(from, to, count)
 
 	path.push({
 	  start: {x: from.start.x, y: from.start.y},
-	  end: {x: from.end.x + (Math.pow(-1, sinal) * (20 * count_teste) * Math.cos(ang_complementar_rad)), y: from.end.y + (Math.pow(-1, sinal) * (20 * count_teste) * Math.sin(ang_complementar_rad))}
+	  end: {x: from.end.x + (Math.pow(-1, sinal) * (distance * count_teste) * Math.cos(ang_complementar_rad)), y: from.end.y + (Math.pow(-1, sinal) * (distance * count_teste) * Math.sin(ang_complementar_rad))}
 	});
 
 	path.push({
